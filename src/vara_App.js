@@ -22,7 +22,7 @@ class App extends Component {
       first: "",
       middle: "",
       last: "",
-      useMiddle: false,
+      doNotUseMiddle: true,
     }
   }
 
@@ -33,8 +33,8 @@ class App extends Component {
   }
 
   updateMiddle = (event, newValue) => {
-    // If value of 'do not use middle name' is true, then set the new value for middle name:
-    if(this.state.useMiddle){
+    // If value of 'do not use middle name' is false, then set the new value for middle name:
+    if(!this.state.doNotUseMiddle){
       this.setState({
         middle: newValue,
       });
@@ -48,8 +48,8 @@ class App extends Component {
   }
 
   autoFill = (event) => {
-     // If value of 'do not use middle name' is true, then set the default constant for the middle name:
-    if(this.state.useMiddle){
+     // If value of 'do not use middle name' is false, then set the default constant for the middle name:
+    if(!this.state.doNotUseMiddle){
       this.setState({
       middle: MIDDLE_NAME,
     });
@@ -63,7 +63,7 @@ class App extends Component {
 
   useMiddleName = (event, isChecked) => {
     this.setState({
-      useMiddle: isChecked, //when 'use middle name' checkbox is checked, it returns true argument
+      doNotUseMiddle: !isChecked, //when 'use middle name' checkbox is checked, it returns false argument
     });
   }
 
@@ -77,8 +77,7 @@ class App extends Component {
           First name: <TextField value={this.state.first} onChange={this.updateFirst} id="first name"/>
           </div>
           <div>
-            {/*when 'useMiddle' state is false, then disable the text field*/}
-          Middle name: <TextField disabled={!this.state.useMiddle} value={this.state.middle} onChange={this.updateMiddle} id="middle name"/>
+          Middle name: <TextField disabled={this.state.doNotUseMiddle} value={this.state.middle} onChange={this.updateMiddle} id="middle name"/>
           </div>
           <div>
             {/*onCheck property fires when the checkbox is checked*/}
